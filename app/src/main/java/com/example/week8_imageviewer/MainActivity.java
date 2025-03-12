@@ -9,12 +9,13 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import android.view.View;
 import android.widget.Button;
-import android.graphics.Color;
+import android.widget.EditText;
+import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
-    private View colorView;
-    private int[] colors;
-    private int index = 0;
+    private EditText inputFirstNumber, inputSecondNumber;
+    private Button buttonPlus, buttonMinus, buttonMultiply, buttonDivide;
+    private TextView textResult;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,31 +28,68 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
-        //The colors are imported from android.graphics.Color. I tried to upload my own colors but this seemed
-        //like an easier way to do it.
-        colors = new int[]{
-                Color.RED,
-                Color.GREEN,
-                Color.BLUE,
-        };
+        inputFirstNumber = findViewById(R.id.inputFirstNumber);
+        inputSecondNumber = findViewById(R.id.inputSecondNumber);
+        buttonPlus = findViewById(R.id.buttonPlus);
+        buttonMinus = findViewById(R.id.buttonMinus);
+        buttonMultiply = findViewById(R.id.buttonMultiply);
+        buttonDivide = findViewById(R.id.buttonDivide);
+        textResult = findViewById(R.id.textResult);
 
-        colorView = findViewById(R.id.colorBoxView);
-        Button changeColorButton = findViewById(R.id.changeColorButton);
-
-        //Do the button pressing like in web development -> set an onClickListener to initiate the change
-        changeColorButton.setOnClickListener(new View.OnClickListener() {
+        buttonPlus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                changeColor(view);
+                calculate("plus");
             }
         });
+
+        buttonMinus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                calculate("minus");
+            }
+        });
+
+        buttonMultiply.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                calculate("multiply");
+            }
+        });
+
+        buttonDivide.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                calculate("divide");
+            }
+        });
+
     }
 
-    public void changeColor(View view) {
-        // Increment index to cycle through colors
-        index = (index + 1) % colors.length;
+    private void calculate(String operation) {
+        double num1, num2;
+        double result = 0;
 
-        // Set the background color of the view
-        colorView.setBackgroundColor(colors[index]);
+        num1 = Double.parseDouble(inputFirstNumber.getText().toString());
+        num2 = Double.parseDouble(inputSecondNumber.getText().toString());
+
+        switch (operation) {
+            case "plus":
+                result = num1 + num2;
+                break;
+            case "minus":
+                result = num1 - num2;
+                break;
+            case "multiply":
+                result = num1 * num2;
+                break;
+            case "divide":
+                result = num1 / num2;
+                break;
+            default:
+                return;
+        }
+        textResult.setText(String.valueOf(result));
     }
 }
+
