@@ -92,4 +92,3 @@ public class MainActivity extends AppCompatActivity {
         textResult.setText(String.valueOf(result));
     }
 }
-

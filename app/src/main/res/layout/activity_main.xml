@@ -75,7 +75,7 @@
         android:id="@+id/textResult"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="64dp"
+        android:layout_marginTop="65dp"
         android:text="Result"
         android:textSize="32dp"
         app:layout_constraintEnd_toEndOf="parent"
